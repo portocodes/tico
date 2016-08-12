@@ -1,0 +1,6 @@
+[package]
+name = "tico"
+version = "0.1.0"
+authors = ["Ricardo Mendes <rokusu@gmail.com>"]
+
+[dependencies]
