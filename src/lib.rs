@@ -1,10 +1,30 @@
 fn tico(tico: &str) -> String {
-    let mut v: Vec<&str> = tico.split('/').collect();
-    v.reverse();
-    let lastDir = v.first();
+    let mut shortened = String::from("");
+    let mut skip_char = false;
+    let mut count = 0;
+    let sections = tico.chars().filter(|&x| x == '/' ).count();
 
-    v.reverse();
-    v.iter().map(|&a| a.chars().take(1)).collect();
+    for c in tico.chars() {
+        match c {
+            '~' => if !skip_char { shortened.push(c) },
+            '/' => {
+                skip_char = false;
+                count += 1;
+                shortened.push(c)
+            }
+            _ => {
+                if skip_char && count < sections {
+                    continue;
+                }
+                else {
+                    skip_char = true;
+                    shortened.push(c);
+                }
+            }
+        }
+    }
+
+    shortened
 }
 
 #[test]
