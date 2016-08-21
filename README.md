@@ -11,3 +11,13 @@ fn it_works() {
     assert_eq!(tico("~/work/ééé/tico"), "~/w/é/tico");
 }
 ```
+
+## Install
+
+`$ cargo install --git git@github.com:portocodes/tico.git`
+
+## Use
+
+Here's how I'm using it in `fish_prompt.fish` to replace `prompt_pwd`:
+
+`set -l cwd $cyan(tico (echo $PWD | sed -e "s|^$HOME|~|"))`
