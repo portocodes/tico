@@ -1,4 +1,4 @@
-fn tico(tico: &str) -> String {
+pub fn tico(tico: &str) -> String {
     let mut shortened = String::from("");
     let mut skip_char = false;
     let mut count = 0;
