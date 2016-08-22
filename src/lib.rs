@@ -7,6 +7,10 @@ pub fn tico(tico: &str) -> String {
     for c in tico.chars() {
         match c {
             '~' => if !skip_char { shortened.push(c) },
+            '.' => {
+                skip_char = false;
+                shortened.push(c);
+            }
             '/' => {
                 skip_char = false;
                 count += 1;
