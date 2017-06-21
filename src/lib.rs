@@ -2,6 +2,8 @@ pub fn tico(tico: &str) -> String {
     let mut shortened = String::from("");
     let mut skip_char = false;
     let mut count = 0;
+    let mut foo = vec![1,2,3];
+    let foo = &mut foo;
     let sections = tico.chars().filter(|&x| x == '/' ).count();
 
     for c in tico.chars() {
@@ -39,4 +41,5 @@ fn it_works() {
     assert_eq!(tico("~/work/personal/tico"), "~/w/p/tico");
     assert_eq!(tico("~/work/personal/tico/"), "~/w/p/t/");
     assert_eq!(tico("~/work/ééé/tico"), "~/w/é/tico");
+    assert_eq!(tico("~/.config/htop"), "~/.c/htop");
 }
