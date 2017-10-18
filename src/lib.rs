@@ -1,3 +1,15 @@
+/// Shorten a path.
+///
+/// This function keeps only the first letter of each
+/// level (`/` separated) of the path, except the current one.
+///
+/// # Examples
+///
+/// ```
+/// let shortened = tico::tico("/home/.secret/path");
+/// println!("{}", shortened);
+/// // => "/h/.s/path"
+/// ```
 pub fn tico(tico: &str) -> String {
     let mut shortened = String::from("");
     let mut skip_char = false;
