@@ -1,3 +1,5 @@
+extern crate dirs;
+
 /// Shorten a path.
 ///
 /// This function keeps only the first letter of each
@@ -10,7 +12,11 @@
 /// println!("{}", shortened);
 /// // => "/h/.s/path"
 /// ```
-pub fn tico(tico: &str) -> String {
+pub fn tico(path: &str) -> String {
+    let home_dir = dirs::home_dir().unwrap();
+    let home_dir_str = home_dir.to_str().unwrap();
+    let tico = path.replacen(&home_dir_str, "~", 1);
+    
     let mut shortened = String::from("");
     let mut skip_char = false;
     let mut count = 0;
