@@ -16,7 +16,7 @@ pub fn tico(path: &str) -> String {
     let home_dir = dirs::home_dir().unwrap();
     let home_dir_str = home_dir.to_str().unwrap();
     let tico = path.replacen(&home_dir_str, "~", 1);
-    
+
     let mut shortened = String::from("");
     let mut skip_char = false;
     let mut count = 0;
