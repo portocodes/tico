@@ -15,7 +15,7 @@ extern crate dirs;
 pub fn tico(path: &str, home_dir: Option<&str>) -> String {
     let tico = match home_dir {
         Some(dir) => path.replacen(&dir, "~", 1),
-        None => path.to_owned()
+        None => path.to_owned(),
     };
 
     let mut shortened = String::from("");
