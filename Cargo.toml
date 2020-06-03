@@ -12,3 +12,6 @@ license = "MIT"
 [[bin]]
 name = "tico"
 doc = false
+
+[dependencies]
+dirs = "2.0.2"

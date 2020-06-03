@@ -1,3 +1,5 @@
+extern crate dirs;
+
 /// Shorten a path.
 ///
 /// This function keeps only the first letter of each
@@ -6,11 +8,16 @@
 /// # Examples
 ///
 /// ```
-/// let shortened = tico::tico("/home/.secret/path");
+/// let shortened = tico::tico("/home/.secret/path", Option::None);
 /// println!("{}", shortened);
 /// // => "/h/.s/path"
 /// ```
-pub fn tico(tico: &str) -> String {
+pub fn tico(path: &str, home_dir: Option<&str>) -> String {
+    let tico = match home_dir {
+        Some(dir) => path.replacen(&dir, "~", 1),
+        None => path.to_owned()
+    };
+
     let mut shortened = String::from("");
     let mut skip_char = false;
     let mut count = 0;
@@ -48,14 +55,30 @@ pub fn tico(tico: &str) -> String {
 
 #[test]
 fn it_works() {
-    assert_eq!(tico("~"), "~");
-    assert_eq!(tico("/"), "/");
+    assert_eq!(tico("~", Option::None), "~");
+    assert_eq!(tico("/", Option::None), "/");
     assert_eq!(
-        tico("/home/hugopeixoto/work/personal/tico"),
+        tico("/home/hugopeixoto/work/personal/tico", Option::None),
         "/h/h/w/p/tico"
     );
-    assert_eq!(tico("~/work/personal/tico"), "~/w/p/tico");
-    assert_eq!(tico("~/work/personal/tico/"), "~/w/p/t/");
-    assert_eq!(tico("~/work/ééé/tico"), "~/w/é/tico");
-    assert_eq!(tico("~/.config/htop"), "~/.c/htop");
+    assert_eq!(tico("~/work/personal/tico", Option::None), "~/w/p/tico");
+    assert_eq!(tico("~/work/personal/tico/", Option::None), "~/w/p/t/");
+    assert_eq!(tico("~/work/ééé/tico", Option::None), "~/w/é/tico");
+    assert_eq!(tico("~/.config/htop", Option::None), "~/.c/htop");
+}
+
+#[test]
+fn home_dir_shorthand() {
+    let home_dir = Option::Some("/home/hugopeixoto");
+
+    assert_eq!(tico("~", home_dir), "~");
+    assert_eq!(tico("/", home_dir), "/");
+    assert_eq!(
+        tico("/home/hugopeixoto/work/personal/tico", home_dir),
+        "~/w/p/tico"
+    );
+    assert_eq!(tico("~/work/personal/tico", home_dir), "~/w/p/tico");
+    assert_eq!(tico("~/work/personal/tico/", home_dir), "~/w/p/t/");
+    assert_eq!(tico("~/work/ééé/tico", home_dir), "~/w/é/tico");
+    assert_eq!(tico("~/.config/htop", home_dir), "~/.c/htop");
 }
