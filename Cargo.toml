@@ -1,6 +1,6 @@
 [package]
 name = "tico"
-version = "1.0.0"
+version = "2.0.0"
 authors = ["Ricardo Mendes <rokusu@gmail.com>"]
 description = "Tico provides a path shortener for use with command prompts."
 documentation = "http://portocodes.github.io/tico/tico/index.html"
